@@ -333,6 +333,7 @@ private:
   ros::Publisher rtk_yaw_info_publisher;
   //! Local Position Publisher (Publishes local position in ENU frame)
   ros::Publisher local_position_publisher;
+  ros::Publisher relative_position_publisher;
 
 #ifdef ADVANCED_SENSING
   ros::Publisher stereo_240p_front_left_publisher;

@@ -239,6 +239,8 @@ DJISDKNode::initPublisher(ros::NodeHandle& nh)
 {
   rc_publisher = nh.advertise<sensor_msgs::Joy>("dji_sdk/rc", 10);
 
+  relative_position_publisher = nh.advertise<sensor_msgs::Joy>("dji_sdk/relative_position", 10);;
+
   // device control status, 0=RC, 1=MSDK, 2=OSDK
   device_status_publisher =
     nh.advertise<std_msgs::UInt8>("dji_sdk/control_status", 10);

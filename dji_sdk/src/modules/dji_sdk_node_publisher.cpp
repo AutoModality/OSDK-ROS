@@ -461,6 +461,26 @@ DJISDKNode::publish50HzData(Vehicle* vehicle, RecvContainer recvFrame,
 
   short int data_enable_flag = vehicle->broadcast->getPassFlag();
 
+  // Transmit relative position data
+//  if (data_enable_flag & DataBroadcast::DATA_ENABLE_FLAG::A3_HAS_RC)
+  {
+    sensor_msgs::Joy rp_joy;
+    rp_joy.header.stamp    = msg_time;
+    rp_joy.header.frame_id = "rp";
+
+    rp_joy.axes.reserve(6);
+    rp_joy.axes.push_back(static_cast<float>(vehicle->broadcast->getRelativePosition().up));
+    rp_joy.axes.push_back(static_cast<float>(vehicle->broadcast->getRelativePosition().front));
+    rp_joy.axes.push_back(static_cast<float>(vehicle->broadcast->getRelativePosition().down));
+    rp_joy.axes.push_back(static_cast<float>(vehicle->broadcast->getRelativePosition().upHealth));
+    rp_joy.axes.push_back(static_cast<float>(vehicle->broadcast->getRelativePosition().frontHealth));
+    rp_joy.axes.push_back(static_cast<float>(vehicle->broadcast->getRelativePosition().downHealth));
+    p->relative_position_publisher.publish(rp_joy);
+//    ROS_INFO("******* REALATIVE  UP[%0.1f, %0.3f] FRONT[%0.1f, %0.3f] DOWN[%0.1f, %0.3f] ",
+//            rp_joy.axes[0],rp_joy.axes[3],rp_joy.axes[1],rp_joy.axes[4],rp_joy.axes[2],rp_joy.axes[5]);
+//
+  }
+
   if (data_enable_flag & DataBroadcast::DATA_ENABLE_FLAG::A3_HAS_RC)
   {
     sensor_msgs::Joy rc_joy;
@@ -475,10 +495,9 @@ DJISDKNode::publish50HzData(Vehicle* vehicle, RecvContainer recvFrame,
 
     rc_joy.axes.push_back(static_cast<float>(vehicle->broadcast->getRC().mode));
     rc_joy.axes.push_back(static_cast<float>(vehicle->broadcast->getRC().gear));
-//    p->rc_publisher.publish(rc_joy);
+//    p->rc_publisher.publish(rp_joy);
 //    ROS_INFO("YYYRC2 %0.3f  %0.3f  %0.3f  %0.3f  %0.3f  %0.3f  ",
 //           rc_joy.axes[0],rc_joy.axes[1],rc_joy.axes[2],rc_joy.axes[3],rc_joy.axes[4],rc_joy.axes[5]); 
-
   }
 
   //update device control info
