@@ -28,7 +28,7 @@
 #include <std_msgs/UInt8.h>
 #include <std_msgs/Int16.h>
 #include <std_msgs/Float32.h>
-
+#include <std_msgs/String.h>
 
 //! msgs
 #include <dji_sdk/Gimbal.h>
@@ -68,6 +68,7 @@
 #include <dji_sdk/Stereo240pSubscription.h>
 #include <dji_sdk/StereoDepthSubscription.h>
 #include <dji_sdk/StereoVGASubscription.h>
+#include <dji_sdk/SetupCameraStream.h>
 #endif
 
 //! SDK library
@@ -112,6 +113,7 @@ private:
   void cleanUpSubscribeFromFC();
   bool validateSerialDevice(LinuxSerialDevice* serialDevice);
   bool isM100();
+
   /*!
    * @note this function exists here instead of inside the callback function
    *        due to the usages, i.e. we not only provide service call but also
@@ -214,6 +216,8 @@ private:
                                        dji_sdk::StereoDepthSubscription::Response& response);
   bool stereoVGASubscriptionCallback(dji_sdk::StereoVGASubscription::Request&  request,
                                      dji_sdk::StereoVGASubscription::Response& response);
+  bool setupCameraStreamCallback(dji_sdk::SetupCameraStream::Request&  request,
+                                 dji_sdk::SetupCameraStream::Response& response);
 #endif
 
   //! data broadcast callback
@@ -252,6 +256,10 @@ private:
   static void publishVGAStereoImage(Vehicle*            vehicle,
                                     RecvContainer       recvFrame,
                                     DJI::OSDK::UserData userData);
+
+  static void publishMainCameraImage(CameraRGBImage img, void* userData);
+
+  static void publishFPVCameraImage(CameraRGBImage img, void* userData);
 #endif
 
 private:
@@ -297,6 +305,7 @@ private:
   ros::ServiceServer subscribe_stereo_240p_server;
   ros::ServiceServer subscribe_stereo_depth_server;
   ros::ServiceServer subscribe_stereo_vga_server;
+  ros::ServiceServer camera_stream_server;
 #endif
 
   //! flight control subscribers
@@ -333,6 +342,7 @@ private:
   ros::Publisher rtk_yaw_info_publisher;
   //! Local Position Publisher (Publishes local position in ENU frame)
   ros::Publisher local_position_publisher;
+  ros::Publisher local_frame_ref_publisher;
   ros::Publisher relative_position_publisher;
 
 #ifdef ADVANCED_SENSING
@@ -343,10 +353,13 @@ private:
   ros::Publisher stereo_240p_front_depth_publisher;
   ros::Publisher stereo_vga_front_left_publisher;
   ros::Publisher stereo_vga_front_right_publisher;
+  ros::Publisher main_camera_stream_publisher;
+  ros::Publisher fpv_camera_stream_publisher;
 #endif
   //! constant
   const int WAIT_TIMEOUT           = 10;
   const int MAX_SUBSCRIBE_PACKAGES = 5;
+  const int INVALID_VERSION        = 0;
 
   //! configurations
   int         app_id;

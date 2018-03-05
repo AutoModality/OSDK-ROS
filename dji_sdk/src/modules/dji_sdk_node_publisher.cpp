@@ -1,6 +1,6 @@
 /** @file dji_sdk_node_publisher.cpp
- *  @version 3.3
- *  @date May, 2017
+ *  @version 3.6
+ *  @date Feb, 2018
  *
  *  @brief
  *  Implementation of the publishers of DJISDKNode
@@ -232,9 +232,10 @@ DJISDKNode::publish10HzData(Vehicle *vehicle, RecvContainer recvFrame,
   data++;
   Telemetry::TimeStamp packageTimeStamp = * (reinterpret_cast<Telemetry::TimeStamp *>(data));
 
-  ros::Time msg_time = ros::Time::now();;
+  ros::Time msg_time = ros::Time::now();
 
-  if(p->align_time_with_FC)  {
+  if(p->align_time_with_FC)
+  {
     if(p->curr_align_state == ALIGNED)
     {
       msg_time = p->base_time + _TICK2ROSTIME(packageTimeStamp.time_ms);
@@ -261,9 +262,10 @@ DJISDKNode::publish10HzData(Vehicle *vehicle, RecvContainer recvFrame,
   msg_battery_state.present = (battery_info.voltage!=0);
   p->battery_state_publisher.publish(msg_battery_state);
 
-  if(p->rtkSupport) {
-  Telemetry::TypeMap<Telemetry::TOPIC_RTK_POSITION>::type rtk_telemetry_position=
-      vehicle->subscribe->getValue<Telemetry::TOPIC_RTK_POSITION>();
+  if(p->rtkSupport)
+  {
+    Telemetry::TypeMap<Telemetry::TOPIC_RTK_POSITION>::type rtk_telemetry_position=
+        vehicle->subscribe->getValue<Telemetry::TOPIC_RTK_POSITION>();
     Telemetry::TypeMap<Telemetry::TOPIC_RTK_VELOCITY>::type rtk_telemetry_velocity=
         vehicle->subscribe->getValue<Telemetry::TOPIC_RTK_VELOCITY>();
     Telemetry::TypeMap<Telemetry::TOPIC_RTK_YAW>::type rtk_telemetry_yaw=
@@ -314,7 +316,7 @@ DJISDKNode::publish50HzData(Vehicle* vehicle, RecvContainer recvFrame,
   data++;
   Telemetry::TimeStamp packageTimeStamp = * (reinterpret_cast<Telemetry::TimeStamp *>(data));
 
-  ros::Time msg_time = ros::Time::now();;
+  ros::Time msg_time = ros::Time::now();
 
   if(p->align_time_with_FC)
   {
@@ -330,16 +332,19 @@ DJISDKNode::publish50HzData(Vehicle* vehicle, RecvContainer recvFrame,
 
   Telemetry::TypeMap<Telemetry::TOPIC_GPS_FUSED>::type fused_gps =
     vehicle->subscribe->getValue<Telemetry::TOPIC_GPS_FUSED>();
+  Telemetry::TypeMap<Telemetry::TOPIC_ALTITUDE_FUSIONED>::type fused_altitude =
+    vehicle->subscribe->getValue<Telemetry::TOPIC_ALTITUDE_FUSIONED>();
+
 
   sensor_msgs::NavSatFix gps_pos;
   gps_pos.header.frame_id = "/gps";
   gps_pos.header.stamp    = msg_time;
   gps_pos.latitude        = fused_gps.latitude * 180.0 / C_PI;   //degree
   gps_pos.longitude       = fused_gps.longitude * 180.0 / C_PI;  //degree
-  gps_pos.altitude        = fused_gps.altitude;                //meter
+  gps_pos.altitude        = fused_altitude;                      //meter
   p->current_gps_latitude = gps_pos.latitude;
   p->current_gps_longitude = gps_pos.longitude;
-  p->current_gps_altitude = gps_pos.altitude;
+  p->current_gps_altitude = fused_altitude;
   p->gps_position_publisher.publish(gps_pos);
 
   if(p->local_pos_ref_set)
@@ -520,8 +525,19 @@ DJISDKNode::publish100HzData(Vehicle *vehicle, RecvContainer recvFrame,
   data++;
   Telemetry::TimeStamp packageTimeStamp = * (reinterpret_cast<Telemetry::TimeStamp *>(data));
 
-  ros::Time now_time = ros::Time::now();
-  ros::Time msg_time = now_time;
+  ros::Time msg_time = ros::Time::now();
+
+  if(p->align_time_with_FC)
+  {
+    if(p->curr_align_state == ALIGNED)
+    {
+      msg_time = p->base_time + _TICK2ROSTIME(packageTimeStamp.time_ms);
+    }
+    else
+    {
+      return;
+    }
+  }
 
   Telemetry::TypeMap<Telemetry::TOPIC_QUATERNION>::type quat =
           vehicle->subscribe->getValue<Telemetry::TOPIC_QUATERNION>();
@@ -776,4 +792,35 @@ void DJISDKNode::publishVGAStereoImage(Vehicle*            vehicle,
   node_ptr->stereo_vga_front_right_publisher.publish(img);
 }
 
+void DJISDKNode::publishFPVCameraImage(CameraRGBImage rgbImg, void* userData)
+{
+  DJISDKNode *node_ptr = (DJISDKNode *)userData;
+
+  sensor_msgs::Image img;
+  img.height = rgbImg.height;
+  img.width = rgbImg.width;
+  img.step = rgbImg.width*3;
+  img.encoding = "rgb8";
+  img.data = rgbImg.rawData;
+
+  img.header.stamp = ros::Time::now();
+  img.header.frame_id = "FPV_CAMERA";
+  node_ptr->fpv_camera_stream_publisher.publish(img);
+}
+
+void DJISDKNode::publishMainCameraImage(CameraRGBImage rgbImg, void* userData)
+{
+  DJISDKNode *node_ptr = (DJISDKNode *)userData;
+
+  sensor_msgs::Image img;
+  img.height = rgbImg.height;
+  img.width = rgbImg.width;
+  img.step = rgbImg.width*3;
+  img.encoding = "rgb8";
+  img.data = rgbImg.rawData;
+
+  img.header.stamp = ros::Time::now();
+  img.header.frame_id = "MAIN_CAMERA";
+  node_ptr->main_camera_stream_publisher.publish(img);
+}
 #endif // ADVANCED_SENSING
