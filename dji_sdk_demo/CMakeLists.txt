@@ -240,39 +240,39 @@ target_link_libraries(demo_local_position_control
 add_dependencies(demo_local_position_control dji_sdk_generate_messages_cpp)
 
 
-if (OPEN_CV_3_3_0_INSTALLED AND FOUND_OPENCV_VIZ AND FOUND_ADVANCED_SENSING)
-    message(STATUS "Found OpenCV ${OpenCV_VERSION}, Viz3d, and advanced sensing module, depth percpetion demo will be compiled")
-
-    FILE(GLOB STEREO_UTILITY_SRC_FILE
-            src/stereo_utility/camera_param.cpp
-            src/stereo_utility/stereo_frame.cpp
-            src/stereo_utility/config.cpp
-            src/stereo_utility/point_cloud_viewer.cpp)
-
-    add_executable(demo_stereo_depth_perception
-            src/demo_stereo_depth_perception.cpp
-            ${STEREO_UTILITY_SRC_FILE} )
-    target_link_libraries(demo_stereo_depth_perception
-            ${catkin_LIBRARIES}
-            ${DJIOSDK_LIBRARIES}
-            ${OpenCV_LIBS}
-            )
-    add_dependencies(demo_stereo_depth_perception dji_sdk_generate_messages_cpp)
-endif()
-
-if (OPEN_CV_3_3_0_INSTALLED AND FOUND_OPENCV_VIZ AND darknet_ros_FOUND AND FOUND_ADVANCED_SENSING)
-    message(STATUS "Found OpenCV ${OpenCV_VERSION}, Viz3d, darknet_ros, and advanced sensing module, depth percpetion demo will be compiled")
-
-    add_executable(demo_stereo_object_depth_perception
-            src/demo_stereo_object_depth_perception.cpp
-            ${STEREO_UTILITY_SRC_FILE} )
-    target_link_libraries(demo_stereo_object_depth_perception
-            ${catkin_LIBRARIES}
-            ${DJIOSDK_LIBRARIES}
-            ${OpenCV_LIBS}
-            )
-    add_dependencies(demo_stereo_object_depth_perception dji_sdk_generate_messages_cpp)
-endif()
+# if (OPEN_CV_3_3_0_INSTALLED AND FOUND_OPENCV_VIZ AND FOUND_ADVANCED_SENSING)
+#    message(STATUS "Found OpenCV ${OpenCV_VERSION}, Viz3d, and advanced sensing module, depth percpetion demo will be compiled")
+#
+#    FILE(GLOB STEREO_UTILITY_SRC_FILE
+#            src/stereo_utility/camera_param.cpp
+#            src/stereo_utility/stereo_frame.cpp
+#            src/stereo_utility/config.cpp
+#            src/stereo_utility/point_cloud_viewer.cpp)
+#
+#    add_executable(demo_stereo_depth_perception
+#            src/demo_stereo_depth_perception.cpp
+#            ${STEREO_UTILITY_SRC_FILE} )
+#    target_link_libraries(demo_stereo_depth_perception
+#            ${catkin_LIBRARIES}
+#            ${DJIOSDK_LIBRARIES}
+#            ${OpenCV_LIBS}
+#            )
+#    add_dependencies(demo_stereo_depth_perception dji_sdk_generate_messages_cpp)
+# endif()
+#
+# if (OPEN_CV_3_3_0_INSTALLED AND FOUND_OPENCV_VIZ AND darknet_ros_FOUND AND FOUND_ADVANCED_SENSING)
+#    message(STATUS "Found OpenCV ${OpenCV_VERSION}, Viz3d, darknet_ros, and advanced sensing module, depth percpetion demo will be compiled")
+#
+#    add_executable(demo_stereo_object_depth_perception
+#            src/demo_stereo_object_depth_perception.cpp
+#            ${STEREO_UTILITY_SRC_FILE} )
+#    target_link_libraries(demo_stereo_object_depth_perception
+#            ${catkin_LIBRARIES}
+#            ${DJIOSDK_LIBRARIES}
+#            ${OpenCV_LIBS}
+#            )
+#    add_dependencies(demo_stereo_object_depth_perception dji_sdk_generate_messages_cpp)
+# endif()
 
 #############
 ## Install ##
