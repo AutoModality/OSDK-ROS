@@ -26,11 +26,9 @@ DJISDKNode::DJISDKNode(ros::NodeHandle& nh, ros::NodeHandle& nh_private)
   nh_private.param("enc_key",       enc_key, std::string("abcd1234"));
   nh_private.param("drone_version", drone_version, std::string("M100")); // choose M100 as default
   nh_private.param("gravity_const", gravity_const, 9.801);
-  nh_private.param("align_time",    align_time_with_FC, true);
-  nh_private.param("use_broadcast", user_select_BC, false);
-  nh_private.param("enable_advanced_sensing", enable_advanced_sensing, true);
   nh_private.param("align_time",    align_time_with_FC, false);
   nh_private.param("use_broadcast", user_select_broadcast, false);
+  nh_private.param("enable_advanced_sensing", enable_advanced_sensing, true);
 
   //! Default values for local Position
   local_pos_ref_latitude  = 0;

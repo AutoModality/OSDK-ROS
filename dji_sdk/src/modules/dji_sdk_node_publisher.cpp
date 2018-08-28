@@ -535,6 +535,8 @@ DJISDKNode::publish50HzData(Vehicle* vehicle, RecvContainer recvFrame,
     p->rc_publisher.publish(rc_joy);
   }
 
+  short int data_enable_flag = vehicle->broadcast->getPassFlag();
+
   //update device control info
   if (data_enable_flag & DataBroadcast::DATA_ENABLE_FLAG::A3_HAS_DEVICE)
   {
