@@ -1,11 +1,11 @@
 /** @file dji_sdk_node_subscriber.cpp
- *  @version 3.3
- *  @date May, 2017
+ *  @version 3.7
+ *  @date July, 2018
  *
  *  @brief
  *  Implementation of the subscribers of DJISDKNode
  *
- *  @copyright 2017 DJI. All rights reserved.
+ *  @copyright 2018 DJI. All rights reserved.
  *
  */
 
@@ -35,6 +35,7 @@ DJISDKNode::gimbalSpeedCtrlCallback(
 
   DJI::OSDK::Gimbal::SpeedData speed_data;
   //! OSDK takes 0.1 deg as unit
+  speed_data.gimbal_control_authority = 1;
   speed_data.roll  = RAD2DEG(msg->vector.x)*10;
   speed_data.pitch = RAD2DEG(msg->vector.y)*10;
   speed_data.yaw   = RAD2DEG(msg->vector.z)*10;
