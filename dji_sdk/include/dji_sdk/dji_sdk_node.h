@@ -71,6 +71,7 @@
 #include <dji_sdk/StereoDepthSubscription.h>
 #include <dji_sdk/StereoVGASubscription.h>
 #include <dji_sdk/SetupCameraStream.h>
+#include <shm_transport/shm_topic.hpp>
 #endif
 
 //! SDK library
@@ -264,6 +265,7 @@ private:
 #endif
 
 private:
+
   //! OSDK core
   Vehicle* vehicle;
   //! general service servers
@@ -307,6 +309,8 @@ private:
   ros::ServiceServer subscribe_stereo_depth_server;
   ros::ServiceServer subscribe_stereo_vga_server;
   ros::ServiceServer camera_stream_server;
+
+
 #endif
 
   //! flight control subscribers
@@ -351,6 +355,7 @@ private:
   ros::Publisher relative_position_publisher;
 
 #ifdef ADVANCED_SENSING
+  //ros publishers
   ros::Publisher stereo_240p_front_left_publisher;
   ros::Publisher stereo_240p_front_right_publisher;
   ros::Publisher stereo_240p_down_front_publisher;
@@ -360,6 +365,18 @@ private:
   ros::Publisher stereo_vga_front_right_publisher;
   ros::Publisher main_camera_stream_publisher;
   ros::Publisher fpv_camera_stream_publisher;
+
+  //shm publishers
+  shm_transport::Topic *shm_h_ = nullptr;
+  shm_transport::Publisher shm_stereo_240p_front_left_publisher;
+  shm_transport::Publisher shm_stereo_240p_front_right_publisher;
+  shm_transport::Publisher shm_stereo_240p_down_front_publisher;
+  shm_transport::Publisher shm_stereo_240p_down_back_publisher;
+  shm_transport::Publisher shm_stereo_240p_front_depth_publisher;
+  shm_transport::Publisher shm_stereo_vga_front_left_publisher;
+  shm_transport::Publisher shm_stereo_vga_front_right_publisher;
+  shm_transport::Publisher shm_main_camera_stream_publisher;
+  shm_transport::Publisher shm_fpv_camera_stream_publisher;
 #endif
   //! constant
   const int WAIT_TIMEOUT           = 10;

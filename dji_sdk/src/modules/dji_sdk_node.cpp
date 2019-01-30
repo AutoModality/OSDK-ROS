@@ -223,6 +223,7 @@ DJISDKNode::initSubscriber(ros::NodeHandle& nh)
   return true;
 }
 
+
 bool
 DJISDKNode::initPublisher(ros::NodeHandle& nh)
 {
@@ -301,32 +302,55 @@ DJISDKNode::initPublisher(ros::NodeHandle& nh)
       nh.advertise<sensor_msgs::NavSatFix>("dji_sdk/local_frame_ref", 10, true);
 
 #ifdef ADVANCED_SENSING
+
   stereo_240p_front_left_publisher =
-    nh.advertise<sensor_msgs::Image>("dji_sdk/stereo_240p_front_left_images", 10);
+		  nh.advertise<sensor_msgs::Image>("dji_sdk/stereo_240p_front_left_images", 10);
 
   stereo_240p_front_right_publisher =
-    nh.advertise<sensor_msgs::Image>("dji_sdk/stereo_240p_front_right_images", 10);
+		  nh.advertise<sensor_msgs::Image>("dji_sdk/stereo_240p_front_right_images", 10);
 
   stereo_240p_down_front_publisher =
-    nh.advertise<sensor_msgs::Image>("dji_sdk/stereo_240p_down_front_images", 10);
+		  nh.advertise<sensor_msgs::Image>("dji_sdk/stereo_240p_down_front_images", 10);
 
   stereo_240p_down_back_publisher =
-    nh.advertise<sensor_msgs::Image>("dji_sdk/stereo_240p_down_back_images", 10);
+		  nh.advertise<sensor_msgs::Image>("dji_sdk/stereo_240p_down_back_images", 10);
 
   stereo_240p_front_depth_publisher =
-    nh.advertise<sensor_msgs::Image>("dji_sdk/stereo_240p_front_depth_images", 10);
+		  nh.advertise<sensor_msgs::Image>("dji_sdk/stereo_240p_front_depth_images", 10);
 
   stereo_vga_front_left_publisher =
-    nh.advertise<sensor_msgs::Image>("dji_sdk/stereo_vga_front_left_images", 10);
+		  nh.advertise<sensor_msgs::Image>("dji_sdk/stereo_vga_front_left_images", 10);
 
   stereo_vga_front_right_publisher =
-    nh.advertise<sensor_msgs::Image>("dji_sdk/stereo_vga_front_right_images", 10);
+		  nh.advertise<sensor_msgs::Image>("dji_sdk/stereo_vga_front_right_images", 10);
 
   main_camera_stream_publisher =
-    nh.advertise<sensor_msgs::Image>("dji_sdk/main_camera_images", 10);
+		  nh.advertise<sensor_msgs::Image>("dji_sdk/main_camera_images", 10);
 
   fpv_camera_stream_publisher =
-    nh.advertise<sensor_msgs::Image>("dji_sdk/fpv_camera_images", 10);
+		  nh.advertise<sensor_msgs::Image>("dji_sdk/fpv_camera_images", 10);
+
+  //SHM Transport Setup
+  shm_h_ = new shm_transport::Topic(nh);
+  shm_stereo_240p_front_left_publisher =
+		  shm_h_->advertise<sensor_msgs::Image>("dji_sdk/stereo_240p_front_left_images", 10, 320 * 240 * 3);
+
+  shm_stereo_240p_front_right_publisher =
+		  shm_h_->advertise<sensor_msgs::Image>("dji_sdk/stereo_240p_front_right_images", 10, 320 * 240 * 3);
+
+  shm_stereo_240p_down_front_publisher =
+		  shm_h_->advertise<sensor_msgs::Image>("dji_sdk/stereo_240p_down_front_images", 10, 320 * 240 * 3);
+
+  shm_stereo_240p_down_back_publisher =
+		  shm_h_->advertise<sensor_msgs::Image>("dji_sdk/stereo_240p_down_back_images", 10, 320 * 240 * 3);
+
+  shm_transport::Publisher shm_stereo_vga_front_left_publisher =
+		  shm_h_->advertise<sensor_msgs::Image>("dji_sdk/stereo_vga_front_left_images", 10, 640 * 480 * 3);
+
+  shm_stereo_vga_front_right_publisher =
+		  shm_h_->advertise<sensor_msgs::Image>("dji_sdk/stereo_vga_front_right_images", 10, 640 * 480 * 3);
+  //TODO: add depth, fpv, and main camera shared memory
+
 #endif
 
 

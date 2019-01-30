@@ -12,6 +12,7 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   sensor_msgs
+  shm_transport
 )
 find_package(DJIOSDK REQUIRED)
 
@@ -161,6 +162,7 @@ add_dependencies(dji_sdk_node
 target_link_libraries(dji_sdk_node
   ${catkin_LIBRARIES}
   ${DJIOSDK_LIBRARIES}
+  rt
 )
 
 #############

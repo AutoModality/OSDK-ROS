@@ -796,16 +796,47 @@ void DJISDKNode::publish240pStereoImage(Vehicle*            vehicle,
         img.header.frame_id = recvFrame.recvData.stereoImgData->img_vec[img_idx].name;
         memcpy((char*)(&img.data[0]), recvFrame.recvData.stereoImgData->img_vec[img_idx++].image, 240*320);
 
+        //The actual image publishing
         if (bit_location == AdvancedSensing::RECV_FRONT_LEFT)
-          node_ptr->stereo_240p_front_left_publisher.publish(img);
+        {
+        	node_ptr->stereo_240p_front_left_publisher.publish(img);
+        	if(node_ptr->shm_stereo_240p_front_left_publisher.getNumSubscribers() > 0)
+        	{
+        		node_ptr->shm_stereo_240p_front_left_publisher.publish(img);
+        	}
+        }
         if (bit_location == AdvancedSensing::RECV_FRONT_RIGHT)
-          node_ptr->stereo_240p_front_right_publisher.publish(img);
+        {
+            node_ptr->stereo_240p_front_right_publisher.publish(img);
+            if(node_ptr->shm_stereo_240p_front_right_publisher.getNumSubscribers() > 0)
+            {
+            	node_ptr->shm_stereo_240p_front_right_publisher.publish(img);
+            }
+        }
         if (bit_location == AdvancedSensing::RECV_DOWN_BACK)
-          node_ptr->stereo_240p_down_back_publisher.publish(img);
+        {
+            node_ptr->stereo_240p_down_back_publisher.publish(img);
+            if(node_ptr->shm_stereo_240p_down_back_publisher.getNumSubscribers() > 0)
+            {
+            	node_ptr->shm_stereo_240p_down_back_publisher.publish(img);
+            }
+        }
         if (bit_location == AdvancedSensing::RECV_DOWN_FRONT)
-          node_ptr->stereo_240p_down_front_publisher.publish(img);
+        {
+            node_ptr->stereo_240p_down_front_publisher.publish(img);
+            if(node_ptr->shm_stereo_240p_down_front_publisher.getNumSubscribers() > 0)
+            {
+            	node_ptr->shm_stereo_240p_down_front_publisher.publish(img);
+            }
+        }
         if (bit_location == AdvancedSensing::RECV_FRONT_DEPTH)
-          node_ptr->stereo_240p_front_depth_publisher.publish(img);
+        {
+        	node_ptr->stereo_240p_front_depth_publisher.publish(img);
+        	/*if(node_ptr->shm_stereo_240p_front_depth_publisher.getNumSubscribers() > 0)
+        	{
+        		node_ptr->shm_stereo_240p_front_depth_publisher.publish(img);
+        	}*/
+        }
       }
     }
   }
@@ -831,10 +862,18 @@ void DJISDKNode::publishVGAStereoImage(Vehicle*            vehicle,
   img.header.frame_id = "vga_left";
   memcpy((char*)(&img.data[0]), recvFrame.recvData.stereoVGAImgData->img_vec[0], 480*640);
   node_ptr->stereo_vga_front_left_publisher.publish(img);
+  if(node_ptr->shm_stereo_vga_front_left_publisher.getNumSubscribers() > 0)
+  {
+	  node_ptr->shm_stereo_vga_front_left_publisher.publish(img);
+  }
 
   img.header.frame_id = "vga_right";
   memcpy((char*)(&img.data[0]), recvFrame.recvData.stereoVGAImgData->img_vec[1], 480*640);
   node_ptr->stereo_vga_front_right_publisher.publish(img);
+  if(node_ptr->shm_stereo_vga_front_right_publisher.getNumSubscribers() > 0)
+  {
+	  node_ptr->shm_stereo_vga_front_right_publisher.publish(img);
+  }
 }
 
 void DJISDKNode::publishFPVCameraImage(CameraRGBImage rgbImg, void* userData)
