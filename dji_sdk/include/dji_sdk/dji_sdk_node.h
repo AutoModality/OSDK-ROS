@@ -387,10 +387,6 @@ private:
   ros::Publisher time_sync_gps_utc_publisher;
   ros::Publisher time_sync_fc_utc_publisher;
   ros::Publisher time_sync_pps_source_publisher;
-  ros::Publisher time_sync_nmea_publisher;
-  ros::Publisher time_sync_gps_utc_publisher;
-  ros::Publisher time_sync_fc_utc_publisher;
-  ros::Publisher time_sync_pps_source_publisher;
 
 #ifdef ADVANCED_SENSING
   ros::Publisher stereo_240p_front_left_publisher;
