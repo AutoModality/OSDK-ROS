@@ -1,0 +1,6 @@
+ros-kinetic-am-osdk-ros (1.0.0-1) UNRELEASED; urgency=low
+
+  * Initial release. Closes: #nnnn
+    <nnnn is the bug number of your ITP>
+
+ -- Jimi Damon <jdamon@automodality.com>  Thu, 12 Dec 2019 10:35:21 -0800
