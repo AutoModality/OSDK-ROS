@@ -1,3 +1,9 @@
+ros-kinetic-am-osdk-ros (3.8.1-rc2) xenial; urgency=medium
+
+  * Version matches the actual release version
+
+ -- Jimi Damon <jdamon@automodality.com>  Thu, 12 Dec 2019 15:08:37 -0800
+
 ros-kinetic-am-osdk-ros (1.0.0-rc1) xenial; urgency=low
 
   [ Jimi Damon ]
