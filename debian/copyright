@@ -1,0 +1,84 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: ros-kinetic-am-osdk-ros
+Source: <url://example.com>
+
+Files:     .github/ISSUE_REPLY_TEMPLATE.md
+           .gitignore
+           ReadMe.md
+           cmake-modules/CMakeLists.txt
+           cmake-modules/External_djiosdkcore.cmake
+           cmake-modules/Finddjiosdk-core.cmake
+           dji_sdk/CMakeLists.txt
+           dji_sdk/include/dji_sdk/dji_sdk.h
+           dji_sdk/include/dji_sdk/dji_sdk_node.h
+           dji_sdk/msg/FCTimeInUTC.msg
+           dji_sdk/msg/FlightAnomaly.msg
+           dji_sdk/msg/GPSUTC.msg
+           dji_sdk/msg/Gimbal.msg
+           dji_sdk/msg/MissionHotpointTask.msg
+           dji_sdk/msg/MissionWaypoint.msg
+           dji_sdk/msg/MissionWaypointAction.msg
+           dji_sdk/msg/MissionWaypointTask.msg
+           dji_sdk/msg/MobileData.msg
+           dji_sdk/msg/PayloadData.msg
+           dji_sdk/msg/VOPosition.msg
+           dji_sdk/msg/Waypoint.msg
+           dji_sdk/msg/WaypointList.msg
+           dji_sdk/setup.py
+           dji_sdk/src/main.cpp
+           dji_sdk/src/modules/dji_sdk_node.cpp
+           dji_sdk/src/modules/dji_sdk_node_control.cpp
+           dji_sdk/src/modules/dji_sdk_node_mission_services.cpp
+           dji_sdk/src/modules/dji_sdk_node_mobile_comm.cpp
+           dji_sdk/src/modules/dji_sdk_node_payload_comm.cpp
+           dji_sdk/src/modules/dji_sdk_node_publisher.cpp
+           dji_sdk/src/modules/dji_sdk_node_services.cpp
+           dji_sdk/src/modules/dji_sdk_node_subscriber.cpp
+           dji_sdk/src/modules/dji_sdk_node_time_sync.cpp
+           dji_sdk/srv/Activation.srv
+           dji_sdk/srv/CameraAction.srv
+           dji_sdk/srv/DroneArmControl.srv
+           dji_sdk/srv/DroneTaskControl.srv
+           dji_sdk/srv/MFIOConfig.srv
+           dji_sdk/srv/MFIOSetValue.srv
+           dji_sdk/srv/MissionHpAction.srv
+           dji_sdk/srv/MissionHpGetInfo.srv
+           dji_sdk/srv/MissionHpResetYaw.srv
+           dji_sdk/srv/MissionHpUpdateRadius.srv
+           dji_sdk/srv/MissionHpUpdateYawRate.srv
+           dji_sdk/srv/MissionHpUpload.srv
+           dji_sdk/srv/MissionStatus.srv
+           dji_sdk/srv/MissionWpAction.srv
+           dji_sdk/srv/MissionWpGetInfo.srv
+           dji_sdk/srv/MissionWpGetSpeed.srv
+           dji_sdk/srv/MissionWpSetSpeed.srv
+           dji_sdk/srv/MissionWpUpload.srv
+           dji_sdk/srv/QueryDroneVersion.srv
+           dji_sdk/srv/SDKControlAuthority.srv
+           dji_sdk/srv/SendMobileData.srv
+           dji_sdk/srv/SendPayloadData.srv
+           dji_sdk/srv/SetHardSync.srv
+           dji_sdk/srv/SetLocalPosRef.srv
+           dji_sdk/srv/SetupCameraStream.srv
+           dji_sdk/srv/Stereo240pSubscription.srv
+           dji_sdk/srv/StereoDepthSubscription.srv
+           dji_sdk/srv/StereoVGASubscription.srv
+           dji_sdk_demo/include/dji_sdk_demo/demo_payload_comm.h
+           dji_sdk_demo/include/dji_sdk_demo/demo_time_sync.h
+           dji_sdk_demo/src/demo_payload_comm.cpp
+           dji_sdk_demo/src/demo_time_sync.cpp
+Copyright: 2017-2019 DJI.
+           __NO_COPYRIGHT_NOR_LICENSE__
+License:   __UNKNOWN__
+
+#----------------------------------------------------------------------------
+# xml and html files (skipped):
+#         dji_sdk/package.xml
+#         dji_sdk/launch/sdk.launch
+#         dji_sdk/launch/sdk_vm.launch
+#         dji_sdk/launch/sdk.launch.org
+#         dji_sdk/launch/sdk_vm_vision.launch
+
+#----------------------------------------------------------------------------
+# Files marked as NO_LICENSE_TEXT_FOUND may be covered by the following
+# license/copyright files.
