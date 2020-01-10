@@ -3,7 +3,7 @@ SHELL:= /bin/bash
 
 
 build: configure
-	ROS_LANG_DISABLE=genlisp:gennodejs:geneus cd catkin_ws && catkin build
+	ROS_LANG_DISABLE=genlisp:gennodejs:geneus cd catkin_ws && catkin build --no-status
 
 install:
 	$(RM) -rf catkin_ws/install/share/{catkin_tools_prebuild,roseus}
