@@ -11,6 +11,7 @@ install:
 	cp -p -r catkin_ws/install/lib $(DESTDIR)/opt/ros/kinetic
 	cp -p -r catkin_ws/install/share $(DESTDIR)/opt/ros/kinetic
 	cp -p -r catkin_ws/install/include $(DESTDIR)/opt/ros/kinetic
+	rm -f $(DESTDIR)/opt/ros/kinetic/lib/pkgconfig/catkin_tools_prebuild.pc
 
 configure:
 	mkdir -p catkin_ws/src
