@@ -9,6 +9,6 @@ Homepage: https://github.com/AutoModality/OSDK-ROS
 Package: ros-kinetic-am-osdk-ros
 Architecture: any
 Multi-Arch: foreign
-Depends: ${misc:Depends}, ${shlibs:Depends} , am-onboard-sdk (>= 3.8.1-rc2)
+Depends: ${misc:Depends}, ${shlibs:Depends} , am-onboard-sdk (>= 3.8.1-rc2) , ros-kinetic-nmea-msgs
 Description: OSDK-ROS node for interfacing with DJI's OSDK
 
