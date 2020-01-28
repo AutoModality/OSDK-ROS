@@ -8,12 +8,13 @@ jobs:
     runs-on: ubuntu-16.04
     steps:
       - uses: actions/checkout@v1
-      - name: Determine the Release Version
+      - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v2
         id: semantic   # `id` for output variables
         with:
           semantic_version: 15.14.0
-          dry_run: true
+          extra_plugins: |
+            @semantic-release/changelog@3.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Package
@@ -22,8 +23,8 @@ jobs:
         uses: AutoModality/action-package-debian-ros@v1.2.1
         with:
           version: ${{ steps.semantic.outputs.new_release_version }}
-          release-repo-entitlement: ${{ secrets.CLOUDSMITH_READ_RELEASE_ENTITLEMENT }}
-          # no dev repo in master!!!
+      - name: The generated package
+        run: echo "The artifact is ${{ steps.package.outputs.artifact-path }}"
       - name: Deploy
         if: steps.semantic.outputs.new_release_published == 'true'
         id: deploy
@@ -37,12 +38,3 @@ jobs:
           distro: 'ubuntu'
           release: 'xenial'
           file: '${{ steps.package.outputs.artifact-path }}'
-      - name: Publish Release to Github
-        if: steps.semantic.outputs.new_release_published == 'true'
-        uses: cycjimmy/semantic-release-action@v2
-        with:
-          semantic_version: 15.14.0
-          extra_plugins: |
-            @semantic-release/changelog@3.0.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
