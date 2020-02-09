@@ -5,12 +5,12 @@ on:
       - master
 jobs:
   package:
-    runs-on: ubuntu-16.04
+    runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v1
       - name: Semantic Release
         # FIXME: change to released version
-        uses: AutoModality/semantic-release-action@node-warning
+        uses: AutoModality/semantic-release-action@BB-800/melodic
         id: semantic   # `id` for output variables
         with:
           semantic_version: 16.0.4
@@ -19,7 +19,7 @@ jobs:
       - name: Package
         if: steps.semantic.outputs.new_release_published == 'true'
         id: package
-        uses: AutoModality/action-package-debian-ros@v1.2.1
+        uses: AutoModality/action-package-debian-ros@BB-800/melodic
         with:
           version: ${{ steps.semantic.outputs.new_release_version }}
           release-repo-entitlement: ${{ secrets.CLOUDSMITH_READ_RELEASE_ENTITLEMENT }}
@@ -36,5 +36,5 @@ jobs:
           owner: 'automodality'
           repo: 'release'
           distro: 'ubuntu'
-          release: 'xenial'
+          release: 'bionic'
           file: '${{ steps.package.outputs.artifact-path }}'
