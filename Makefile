@@ -1,9 +1,6 @@
 SHELL:= /bin/bash
 .PHONY:	configure
 
-default:
-	source /opt/ros/melodic/setup.bash && cd catkin_ws && catkin clean -f -i -y && catkin build  --no-status
-	@echo "Built!!!!"
 
 build: configure
 	ROS_LANG_DISABLE=genlisp:gennodejs:geneus cd catkin_ws && catkin build --no-status
