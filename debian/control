@@ -1,14 +1,14 @@
-Source: ros-kinetic-am-osdk-ros
+Source: ros-melodic-am-osdk-ros
 Section: unknown
 Priority: extra
 Maintainer: AutoModality <dev@automodality.com>
-Build-Depends: debhelper (>=9) , am-onboard-sdk, ros-kinetic-nmea-msgs
+Build-Depends: debhelper (>=9) , am-onboard-sdk, ros-melodic-nmea-msgs
 Standards-Version: 3.9.6
 Homepage: https://github.com/AutoModality/OSDK-ROS
 
-Package: ros-kinetic-am-osdk-ros
+Package: ros-melodic-am-osdk-ros
 Architecture: any
 Multi-Arch: foreign
-Depends: ${misc:Depends}, ${shlibs:Depends} , am-onboard-sdk, ros-kinetic-nmea-msgs
+Depends: ${misc:Depends}, ${shlibs:Depends} , am-onboard-sdk, ros-melodic-nmea-msgs
 Description: OSDK-ROS node for interfacing with DJI's OSDK
 
