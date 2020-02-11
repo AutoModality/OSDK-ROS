@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v1
       - name: Package
         id: package
-        uses: AutoModality/action-package-debian-ro@BB-800/melodic
+        uses: AutoModality/action-package-debian-ros@BB-800/melodic
         with:
           branch: ${{ github.event.pull_request.head.ref }}
           pull-request-number: ${{ github.event.number }}
