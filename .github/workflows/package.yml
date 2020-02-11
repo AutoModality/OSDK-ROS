@@ -19,6 +19,7 @@ jobs:
           branch: ${{ github.event.pull_request.head.ref }}
           pull-request-number: ${{ github.event.number }}
           build-number: ${{ github.run_number }}
+          release-repo-entitlement: ${{ secrets.CLOUDSMITH_READ_RELEASE_ENTITLEMENT }}
       - name: The generated package
         run: echo "The artifact is ${{ steps.package.outputs.artifact-path }}"
       - name: Deploy
