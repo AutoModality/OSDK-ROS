@@ -11,5 +11,9 @@ jobs:
       - uses: actions/checkout@v1
       - name: Package
         uses: AutoModality/action-package-debian-ros@v1.3.1
+        with:
+          release-repo-entitlement: ${{ secrets.CLOUDSMITH_READ_DEV_ENTITLEMENT }}
+          release-repo-entitlement: ${{ secrets.CLOUDSMITH_READ_RELEASE_ENTITLEMENT }}
+
 
 
