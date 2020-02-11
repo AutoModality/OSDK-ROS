@@ -5,21 +5,20 @@ on:
       - master
 jobs:
   package:
-    runs-on: ubuntu-16.04
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-18.04, [self-hosted,linux,arm64]]
+      fail-fast: true
     steps:
       - uses: actions/checkout@v1
-      - name: Generate build number
-        id: buildnumber
-        uses: einaregilsson/build-number@v2 
-        with:
-          token: ${{secrets.github_token}}
       - name: Package
         id: package
-        uses: AutoModality/action-package-debian-ros@BB-780/control-depends
+        uses: AutoModality/action-package-debian-ros@v1.3.1
         with:
           branch: ${{ github.event.pull_request.head.ref }}
           pull-request-number: ${{ github.event.number }}
-          build-number: ${{ steps.buildnumber.outputs.build_number }}
+          build-number: ${{ github.run_number }}
       - name: The generated package
         run: echo "The artifact is ${{ steps.package.outputs.artifact-path }}"
       - name: Deploy
