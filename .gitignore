@@ -4,3 +4,9 @@
 *.swp
 *sdk.launch
 build.sh
+catkin_ws/
+debian/*-stamp
+debian/files
+debian/*.debhelper.log
+debian/*.substvars
+debian/ros-kinetic-*

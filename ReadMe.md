@@ -1,5 +1,12 @@
 # DJI Onboard SDK ROS 3.8.1
 
+
+| Github Action  | Debian Package |
+| ------------- | ------------- |
+| [![Story Development](https://github.com/AutoModality/OSDK-ROS/workflows/Story%20Development/badge.svg)](https://github.com/AutoModality/OSDK-ROS/actions?query=workflow%3A%22Story+Development%22) | --  |
+| [![Release Candidate](https://github.com/AutoModality/OSDK-ROS/workflows/Release%20Candidate/badge.svg)](https://github.com/AutoModality/OSDK-ROS/actions)  | [![Latest Version @ Cloudsmith](https://api-prd.cloudsmith.io/badges/version/automodality/dev/deb/ros-kinetic-am-osdk-ros/latest/d=ubuntu%252Fxenial;t=1/?render=true&badge_token=gAAAAABeLzCem7TcGt0QP1gdCtsO3R7erjEQVZcrozER96wSG07QjfrkF3HFWwMl_sSLvX7cGTdxKcHgunTBH168imSleXgMzSL-SJQ1otdBPJ1BsKugA7A%3D)](https://cloudsmith.io/~automodality/repos/dev/packages/detail/deb/ros-kinetic-am-osdk-ros/latest/d=ubuntu%252Fxenial;t=1/)  |
+| [![Release](https://github.com/AutoModality/OSDK-ROS/workflows/Release/badge.svg)](https://github.com/AutoModality/OSDK-ROS/actions?query=workflow%3A%22Release)  | [![Latest Version @ Cloudsmith](https://api-prd.cloudsmith.io/badges/version/automodality/release/deb/ros-kinetic-am-osdk-ros/latest/d=ubuntu%252Fxenial;t=1/?render=true&badge_token=gAAAAABeL7mYD-kZJfAy-KURgj_Xv7Pab7kDfeLpl1IZ3Jh5TXinF9jd1Sh-Yf-xcmxZ44zCmgU_kq14gj2bfYeN7eSW4KRtD0Ek3zwCFzZjm9SpAm-DDng%3D)](https://cloudsmith.io/~automodality/repos/release/packages/detail/deb/ros-kinetic-am-osdk-ros/latest/d=ubuntu%252Fxenial;t=1/) |
+
 ## Latest Update
 
 OSDK-ROS 3.8.1 was released on 4 June 2019. This release adds support of Onboard-Payload SDK communication and time sync function. Additionally, the dependency of djiosdk-core is auto-update in the release. Please see the [release notes](https://developer.dji.com/onboard-sdk/documentation/appendix/releaseNotes.html) and [ROS sample setup](https://developer.dji.com/onboard-sdk/documentation/sample-doc/sample-setup.html#ros-onboard-computer) for more information.
