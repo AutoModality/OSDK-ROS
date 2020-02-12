@@ -6,10 +6,14 @@ on:
       - master
 jobs:
   build:
-    runs-on: ubuntu-16.04
+    runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v1
       - name: Package
-        uses: AutoModality/action-package-debian-ros@BB-780/control-depends
+        uses: AutoModality/action-package-debian-ros@v1.3.1
+        with:
+          dev-repo-entitlement: ${{ secrets.CLOUDSMITH_READ_DEV_ENTITLEMENT }}
+          release-repo-entitlement: ${{ secrets.CLOUDSMITH_READ_RELEASE_ENTITLEMENT }}
+
 
 
