@@ -63,6 +63,3 @@ You can get support from DJI and the community with the following methods:
 - Report issue on github
 - [**DJI Forum**](http://forum.dev.dji.com/en)
 
-
-
-
