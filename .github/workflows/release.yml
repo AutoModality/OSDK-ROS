@@ -68,6 +68,7 @@ jobs:
         uses: AutoModality/action-package-debian-ros@v1.3.2
         with:
           version: ${{ steps.version.outputs.value }}
+          release-repo-entitlement: ${{ secrets.CLOUDSMITH_READ_RELEASE_ENTITLEMENT }}
       - name: Deploy if published
         if: steps.published.outputs.value == 'true'
         id: deploy
