@@ -4,33 +4,72 @@ on:
     branches:
       - master
 jobs:
-  package:
+  release:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Semantic Release
+        id: semantic
+        uses: cycjimmy/semantic-release-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Write release result to file
+        run: mkdir release
+      - name: Write Published
+        uses: christian-draeger/write-properties@1.0.1
+        with:
+          path: 'release.properties'
+          property: 'published'
+          value: ${{ steps.semantic.outputs.new_release_published }}
+      - name: Write Version
+        uses: christian-draeger/write-properties@1.0.1
+        if: steps.semantic.outputs.new_release_published == 'true'
+        with:
+          path: 'release.properties'
+          property: 'version'
+          value: ${{ steps.semantic.outputs.new_release_version }}
+      - name: Share release file with other jobs
+        uses: actions/upload-artifact@v1
+        with:
+          name: release
+          path: 'release.properties'
+  release-package:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-18.04, [self-hosted,linux,arm64]]
       fail-fast: true
+    needs: release
+    name: Package if released
     steps:
-      - uses: actions/checkout@v1
-      - name: Semantic Release
-        # FIXME: change to released version
-        uses: AutoModality/semantic-release-action@node-warning
-        id: semantic   # `id` for output variables
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Download release
+        uses: actions/download-artifact@v1
         with:
-          semantic_version: 16.0.4
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Package
-        if: steps.semantic.outputs.new_release_published == 'true'
+          name: release
+      - name: Read Published
+        id: published
+        uses: christian-draeger/read-properties@1.0.1
+        with:
+          path: 'release/release.properties'
+          property: 'published'
+      - name: Read Version if published
+        id: version
+        if: steps.published.outputs.value == 'true'
+        uses: christian-draeger/read-properties@1.0.1
+        with:
+          path: 'release/release.properties'
+          property: 'version'
+      - name: Package if published
+        if: steps.published.outputs.value == 'true'
         id: package
         uses: AutoModality/action-package-debian-ros@v1.3.2
         with:
-          version: ${{ steps.semantic.outputs.new_release_version }}
-          release-repo-entitlement: ${{ secrets.CLOUDSMITH_READ_RELEASE_ENTITLEMENT }}
-      - name: The generated package
-        run: echo "The artifact is ${{ steps.package.outputs.artifact-path }}"
-      - name: Deploy
-        if: steps.semantic.outputs.new_release_published == 'true'
+          version: ${{ steps.version.outputs.value }}
+      - name: Deploy if published
+        if: steps.published.outputs.value == 'true'
         id: deploy
         uses: AutoModality/action-cloudsmith@0.2.0
         with:
