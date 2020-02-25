@@ -64,5 +64,3 @@ You can get support from DJI and the community with the following methods:
 - [**DJI Forum**](http://forum.dev.dji.com/en)
 
 
-
-
