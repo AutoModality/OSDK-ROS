@@ -1,6 +1,5 @@
 # DJI Onboard SDK ROS 3.8.1
 
-
 | Github Action  | Debian Package |
 | ------------- | ------------- |
 | [![Story Development](https://github.com/AutoModality/OSDK-ROS/workflows/Story%20Development/badge.svg)](https://github.com/AutoModality/OSDK-ROS/actions?query=workflow%3A%22Story+Development%22) | --  |
