@@ -7,6 +7,7 @@ jobs:
   release:
     runs-on: ubuntu-18.04
     steps:
+      - uses: AutoModality/action-clean@v1
       - name: Checkout
         uses: actions/checkout@v2
       - name: Semantic Release
@@ -43,6 +44,7 @@ jobs:
     needs: release
     name: Package if released
     steps:
+      - uses: AutoModality/action-clean@v1
       - name: Checkout
         uses: actions/checkout@v2
       - name: Download release
@@ -65,7 +67,7 @@ jobs:
       - name: Package if published
         if: steps.published.outputs.value == 'true'
         id: package
-        uses: AutoModality/action-package-debian-ros@BB-800/melodic
+        uses: AutoModality/action-package-debian-ros@v3-perception
         with:
           version: ${{ steps.version.outputs.value }}
           release-repo-entitlement: ${{ secrets.CLOUDSMITH_READ_RELEASE_ENTITLEMENT }}
