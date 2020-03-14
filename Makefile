@@ -18,7 +18,6 @@ configure:
 	cd catkin_ws && catkin init --workspace . >/dev/null
 	cd catkin_ws && catkin config --install
 	cp -r dji_sdk dji_sdk_demo catkin_ws/src
-	source catkin_ws/devel/setup.bash
 	
 clean:
 	$(RM) -rf catkin_ws 
