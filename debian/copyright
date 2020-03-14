@@ -1,5 +1,5 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: ros-kinetic-am-osdk-ros
+Upstream-Name: ros-melodic-am-osdk-ros
 Source: <url://example.com>
 
 Files:     .github/ISSUE_REPLY_TEMPLATE.md

@@ -1,18 +1,17 @@
-name: Story Development
-
+name: Nightly Build
 on:
-  push:
-    branches-ignore:
-      - master
+  schedule:
+    - cron: '10 05 * * *'
 jobs:
   build:
     runs-on: ubuntu-18.04
     steps:
-      - uses: actions/checkout@v1
+      - uses: AutoModality/action-clean@v1
+      - uses: actions/checkout@v2
       - name: Package
+        id: package
         uses: AutoModality/action-package-debian-ros@v3-perception
         with:
           dev-repo-entitlement: ${{ secrets.CLOUDSMITH_READ_DEV_ENTITLEMENT }}
           release-repo-entitlement: ${{ secrets.CLOUDSMITH_READ_RELEASE_ENTITLEMENT }}
-
 
