@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v1
       - name: Package
         id: package
-        uses: AutoModality/action-package-debian-ros@v3-perception
+        uses: AutoModality/action-package-debian-ros@v3
         with:
           branch: ${{ github.event.pull_request.head.ref }}
           pull-request-number: ${{ github.event.number }}
