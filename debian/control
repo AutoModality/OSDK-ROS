@@ -14,5 +14,6 @@ Multi-Arch: foreign
 Depends: ${misc:Depends}, ${shlibs:Depends} , 
     am-onboard-sdk, 
     ros-melodic-nmea-msgs,
+Replaces: ros-melodic-dji-onboard-sdk-ros
 Description: OSDK-ROS node for interfacing with DJI's OSDK
 
