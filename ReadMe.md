@@ -1,3 +1,9 @@
+DEPRECATED: Use [Onboard-SDK-ROS](https://github.com/AutoModality/Onboard-SDK-ROS)
+
+Use this for DJI M210 V0/V1.  M210 V2 and M300 use Onboard-SDK-ROS
+
+
+
 # DJI Onboard SDK ROS 3.8.1
 
 | Github Action  | Debian Package |
